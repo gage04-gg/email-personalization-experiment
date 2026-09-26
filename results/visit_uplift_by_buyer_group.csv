@@ -1,0 +1,7 @@
+buyer_group,email,n_treat,n_control,control_visit_rate,uplift,se,ci_low,ci_high
+mens only,Mens E-Mail,9558,9638,0.09981,0.06916,0.0049,0.05955,0.07876
+mens only,Womens E-Mail,9622,9638,0.09981,0.01108,0.00442,0.00241,0.01975
+womens only,Mens E-Mail,9568,9519,0.09581,0.07058,0.00486,0.06106,0.0801
+womens only,Womens E-Mail,9647,9519,0.09581,0.07399,0.00487,0.06444,0.08353
+both,Mens E-Mail,2181,2149,0.18055,0.13444,0.01296,0.10905,0.15984
+both,Womens E-Mail,2118,2149,0.18055,0.0711,0.01256,0.04648,0.09573

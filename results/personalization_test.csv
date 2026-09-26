@@ -1,0 +1,4 @@
+outcome,role,matched_coef,se,ci_low,ci_high,p_value
+visit,confirmatory,0.030716,0.003679,0.023506,0.037927,0.0
+conversion,secondary,0.002382,0.001,0.000422,0.004343,0.017243
+spend,secondary,0.209972,0.160066,-0.103757,0.523702,0.189592
