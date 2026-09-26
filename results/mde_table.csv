@@ -1,0 +1,7 @@
+outcome,pooled_base,alpha,mde_absolute,mde_relative_pct
+visit,0.1468,0.05,0.0096,6.5
+visit,0.1468,0.025,0.0106,7.2
+conversion,0.009,0.05,0.0026,28.4
+conversion,0.009,0.025,0.0028,31.3
+spend,1.0509,0.05,0.4081,38.8
+spend,1.0509,0.025,0.4491,42.7
