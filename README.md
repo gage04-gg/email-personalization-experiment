@@ -17,7 +17,7 @@ Kevin Hillstrom's **MineThatData E-Mail Analytics Challenge** (March 2008). It i
 3. **Main effects** ([02](02_main_effects.ipynb)): difference in means with Neyman SEs, Holm correction for the two primary tests, Lin (2013) regression adjustment with HC2 SEs, CUPED, 10,000-draw permutation tests, a bootstrap CI and winsorizing for spend.
 4. **Personalization and heterogeneity** ([03](03_personalization_and_heterogeneity.ipynb)): a pre-registered test of the "matched email" effect, and two pre-registered interactions (newbie, recent buyer).
 5. **Targeting policy** ([04](04_targeting_policy.ipynb)): a 50/50 train/test split, per-cell spend uplifts learned on train, and policy value on test estimated with inverse-probability weighting and bootstrap CIs, plus a margin × cost sensitivity table.
-6. **Excel profit calculator** ([excel/](excel/), [excel_guide.md](excel_guide.md)): SUMIFS/XLOOKUP, INDEX/MATCH and a two-way data table.
+6. **Excel profit calculator** ([excel/](excel/), [excel_guide.md](excel_guide.md)): SUMIFS, INDEX/MATCH, a margin × cost sensitivity grid and the held-out results side by side.
 
 ## Key results
 
