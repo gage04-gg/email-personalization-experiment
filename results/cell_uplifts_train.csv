@@ -1,0 +1,13 @@
+cell,past_category,recent_buyer,newbie,customers_all_data,train_n_control,train_n_mens,train_n_womens,control_spend,mens_spend_uplift,womens_spend_uplift,mens_visit_uplift,womens_visit_uplift,mens_conversion_uplift,womens_conversion_uplift,profit_mens,profit_womens,policy_action
+both / older / newbie,both,0,1,1006,153,180,177,3.874183,-3.11585,-2.649946,0.138562,0.098261,-0.008497,0.002991,-1.034755,-0.894984,none
+both / older / old customer,both,0,0,963,138,166,140,0.0,1.493313,0.0,0.097084,0.039855,0.024096,0.0,0.347994,-0.1,mens
+both / recent / newbie,both,1,1,2905,501,474,471,1.062655,1.41089,0.264819,0.120278,0.081887,0.019556,0.011251,0.323267,-0.020554,mens
+both / recent / old customer,both,1,0,1574,253,275,250,2.096443,2.51723,-1.785683,0.138972,0.002609,0.017233,-0.003858,0.655169,-0.635705,mens
+mens only / older / newbie,mens only,0,1,6043,969,1024,1049,0.0,1.670791,0.247788,0.04882,-0.007984,0.014648,0.001907,0.401237,-0.025663,mens
+mens only / older / old customer,mens only,0,0,6689,1107,1096,1121,0.485944,0.105114,-0.07887,0.087667,0.027316,0.000967,-0.001852,-0.068466,-0.123661,none
+mens only / recent / newbie,mens only,1,1,8091,1333,1370,1346,0.681118,0.496598,0.460116,0.074373,0.026677,0.005738,0.002936,0.048979,0.038035,mens
+mens only / recent / old customer,mens only,1,0,7995,1332,1329,1332,1.288498,1.081073,0.79241,0.096654,-0.003003,0.010558,-0.000751,0.224322,0.137723,mens
+womens only / older / newbie,womens only,0,1,6061,954,1014,1007,0.0,0.559191,0.861291,0.06298,0.08154,0.008876,0.007944,0.067757,0.158387,womens
+womens only / older / old customer,womens only,0,0,6653,1138,1137,1133,0.687276,0.627676,0.437834,0.085397,0.085157,0.011435,0.008834,0.088303,0.03135,mens
+womens only / recent / newbie,womens only,1,1,8038,1351,1314,1378,0.345033,0.624168,1.029923,0.076259,0.063615,0.00319,0.004253,0.08725,0.208977,womens
+womens only / recent / old customer,womens only,1,0,7982,1326,1322,1340,0.852044,0.272162,-0.216626,0.048861,0.073075,0.000791,-0.004596,-0.018351,-0.164988,none
