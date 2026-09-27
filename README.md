@@ -1,50 +1,65 @@
-# Is Email Personalization Worth It? A Three-Arm Email Experiment
+# Does Sending the Right Email Matter? An A/B/C Email Test
 
-I analysed a randomized email test on 64,000 customers to find out whether emailing works, whether matching the email to past purchases adds anything, and who should not be emailed at all.
+I looked at an email test on 64,000 customers. I wanted to answer three things: does sending an email help, does it help more when the email matches what the customer bought before, and which customers we can stop emailing.
 
 ## Why I did this
 
-Most A/B testing projects I found stop at a two-proportion z-test on a landing page. I wanted to analyse an experiment the way an experimentation team or an economist would: write the analysis plan before looking at results, handle three arms and multiple testing, try variance reduction (Lin regression adjustment and CUPED), check results with permutation tests, and end with a business decision (a targeting policy) that is evaluated honestly on held-out data.
+Most A/B test projects I saw only compare two groups with one test and stop there. I wanted to go a bit further:
+
+- There are three groups here, not two, so I had to correct for running more than one test.
+- I wrote down my plan and saved it in git before I looked at any results, so I could not pick the tests that looked best later.
+- I checked the results in more than one way (regression, shuffling test, bootstrap).
+- I ended with a real business question: who should get which email, and is it worth the cost?
 
 ## Data
 
-Kevin Hillstrom's **MineThatData E-Mail Analytics Challenge** (March 2008). It is a **public dataset from a US retailer, 2008**, not client work. 64,000 customers who bought in the last year were randomly assigned to a men's merchandise email, a women's merchandise email or no email (1/3 each). Visits, conversions and spend were tracked for two weeks. Details and data-quality checks are in [data_notes.md](data_notes.md).
+The data is the MineThatData E-Mail Challenge by Kevin Hillstrom (2008). It is a public dataset from a US online retailer. It is not client work.
 
-## Method
+64,000 past customers were split at random into three equal groups:
 
-1. **Randomization checks** ([01](01_data_and_checks.ipynb)): sample ratio mismatch test (p = 0.90), balance table with standardized mean differences (all below 0.014), joint F-test, and minimum detectable effects.
-2. **Pre-registration:** I wrote [analysis_plan.md](analysis_plan.md) and committed it to git *before* calculating any treatment effect. Changes are logged in [decisions_log.md](decisions_log.md).
-3. **Main effects** ([02](02_main_effects.ipynb)): difference in means with Neyman SEs, Holm correction for the two primary tests, Lin (2013) regression adjustment with HC2 SEs, CUPED, 10,000-draw permutation tests, a bootstrap CI and winsorizing for spend.
-4. **Personalization and heterogeneity** ([03](03_personalization_and_heterogeneity.ipynb)): a pre-registered test of the "matched email" effect, and two pre-registered interactions (newbie, recent buyer).
-5. **Targeting policy** ([04](04_targeting_policy.ipynb)): a 50/50 train/test split, per-cell spend uplifts learned on train, and policy value on test estimated with inverse-probability weighting and bootstrap CIs, plus a margin × cost sensitivity table.
-6. **Excel profit calculator** ([excel/](excel/), [excel_guide.md](excel_guide.md)): SUMIFS, INDEX/MATCH, a margin × cost sensitivity grid and the held-out results side by side.
+- one group got an email about men's products
+- one group got an email about women's products
+- one group got no email
 
-## Key results
+For the next two weeks the company tracked whether each customer visited the website, bought something, and how much they spent. My notes on the data are in [data_notes.md](data_notes.md).
 
-| Outcome | No email | Mens email | Womens email | Mens effect (95% CI) | Womens effect (95% CI) |
+## What I did
+
+1. **Checked the split was fair** ([notebook 01](01_data_and_checks.ipynb)). The three groups are the same size (p = 0.90), and customers in each group look alike on age of account, past spend, location and so on. I also worked out the smallest effect the test could detect.
+2. **Wrote the plan first** ([analysis_plan.md](analysis_plan.md)). I saved it in git before calculating any results. Any change after that is written in [decisions_log.md](decisions_log.md).
+3. **Main results** ([notebook 02](02_main_effects.ipynb)). I compared each email group with the no-email group. I used a simple difference in averages, a regression that also uses customer details (Lin method), CUPED, a shuffling (permutation) test, and a bootstrap for spend. I used the Holm correction because there are two main tests.
+4. **Does matching the email help?** ([notebook 03](03_personalization_and_heterogeneity.ipynb)). I compared customers who got the email matching their past category with those who got the other one. I also checked whether the email worked differently for new customers and for recent buyers.
+5. **Who should get which email?** ([notebook 04](04_targeting_policy.ipynb)). I split the customers in half. On the first half I found the best action (men's email, women's email or no email) for each of 12 customer groups. On the second half I checked how much profit that rule really makes and compared it with simple rules like "email everyone".
+6. **Excel profit calculator** ([excel/](excel/), [excel_guide.md](excel_guide.md)). SUMIFS, INDEX/MATCH, a margin × cost sensitivity grid and the held-out results side by side.
+
+## Results
+
+| | No email | Men's email | Women's email | Men's email effect (95% CI) | Women's email effect (95% CI) |
 |---|---|---|---|---|---|
-| Visit rate (primary) | 10.6% | 18.3% | 15.1% | +7.7 pts (7.0, 8.3) | +4.5 pts (3.9, 5.2) |
-| Conversion rate | 0.57% | 1.25% | 0.88% | +0.68 pts (0.50, 0.86) | +0.31 pts (0.15, 0.47) |
-| Spend per customer | $0.65 | $1.42 | $1.08 | +$0.77 ($0.49, $1.04)* | +$0.42 ($0.18, $0.69)* |
+| Visited the site | 10.6% | 18.3% | 15.1% | +7.7 points (7.0 to 8.3) | +4.5 points (3.9 to 5.2) |
+| Bought something | 0.57% | 1.25% | 0.88% | +0.68 points (0.50 to 0.86) | +0.31 points (0.15 to 0.47) |
+| Spend per customer | $0.65 | $1.42 | $1.08 | +$0.77 ($0.49 to $1.04)* | +$0.42 ($0.18 to $0.69)* |
 
 \* bootstrap CI
 
 ![Main effects](figures/main_effects.png)
 
-- **Emailing works.** Both primary tests pass after the Holm correction and in the permutation test.
-- **Personalization:** the matching email adds **+3.1 visit points** (CI 2.4 to 3.8). The gain comes from men's-only buyers, who ignore the women's email. Women's-only buyers respond equally to both emails. There is no significant gain in spend.
-- **Heterogeneity:** the uplift is the same for new and old customers and for recent and older buyers (both interactions p > 0.4).
-- **Targeting:** on held-out data, the learned policy earns $0.341 per customer vs $0.338 for "men's email to everyone". That is the same profit while **not emailing 24.5% of customers**. It clearly wins only when emails are expensive.
-- **Variance reduction** cut SEs by only about 1.5% (Lin) and 0.02% (CUPED), because past-year spend barely predicts 2-week spend.
+What I found:
 
-The one-page summary is in [memo.md](memo.md).
+- **Emails work.** Both emails brought more people to the site. The men's email almost doubled visits. Both results hold after the correction for two tests and in the shuffling test.
+- **Matching helps, but only one way.** Getting the matching email raised visits by 3.1 points. But this came only from men's buyers, who mostly ignored the women's email. Women's buyers liked both emails about the same. Matching did not clearly raise spend.
+- **New vs old customers, recent vs older buyers:** the email worked about the same for all of them.
+- **Who to stop emailing:** my rule made $0.341 profit per customer, and "men's email to everyone" made $0.338. So the profit is about the same, but my rule **sends 24.5% fewer emails**. The rule only clearly wins when each email is costly.
+- **Using customer details to reduce noise** (Lin and CUPED) barely helped here, only 1.5% and 0.02%. Last year's spend tells us very little about spend in the next two weeks.
+
+A one-page summary is in [memo.md](memo.md).
 
 ## What I would do differently
 
-- Use a pre-period version of the **same** outcome (for example visits or spend in the 2 weeks before the email) for CUPED. The yearly spend figure was almost useless as a covariate.
-- Learn the targeting policy with a model that shares information across cells (for example a regression with interactions), because some cells had only about 150 customers per arm and the noise ate most of the targeting gain.
-- Track unsubscribes and longer-run revenue, because the real case for sending fewer emails lies there.
-- Pre-register the Mens vs Womens comparison as well. I only looked at it as exploratory.
+- For CUPED, use the same thing measured before the test (for example spend in the 2 weeks before the email) instead of last year's total spend.
+- Some of my 12 customer groups were small (about 150 people per email type), so their numbers were noisy. A model that shares information between groups would probably work better.
+- Track unsubscribes and longer-term sales. The main reason to send fewer emails is to avoid annoying customers, and this data does not show that.
+- Put the men's vs women's email comparison in the plan too. I only looked at it as an extra.
 
 ## How to run
 
@@ -59,7 +74,7 @@ curl -L -o data/hillstrom.csv "http://www.minethatdata.com/Kevin_Hillstrom_MineT
 jupyter notebook
 ```
 
-Then run the notebooks in order, 01 to 04 (Restart & Run All). All random steps use seed 2026, so the numbers reproduce exactly. The CSV is not committed because I could not find clear redistribution terms on the source page. (I keep the virtual environment outside the project folder because Python refuses to create one in a path containing `:`.)
+Run the notebooks in order, 01 to 04 (Restart & Run All). I set the random seed to 2026, so you get the same numbers every time. I did not upload the CSV because I could not find clear terms for sharing it, so the command above downloads it. I keep the virtual environment outside the project folder because Python does not allow one in a folder name with `:` in it.
 
 ---
 
