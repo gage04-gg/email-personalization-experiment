@@ -1,4 +1,4 @@
-# Does Sending the Right Email Matter? An A/B/C Email Test
+# Email Personalization A/B Test: Measuring Campaign Lift and Building a Profit-Based Targeting Rule for 64,000 Customers
 
 I looked at an email test on 64,000 customers. I wanted to answer three things: does sending an email help, does it help more when the email matches what the customer bought before, and which customers we can stop emailing.
 
